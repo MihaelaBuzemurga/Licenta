@@ -43,14 +43,12 @@ public class ClientWorker implements Runnable {
 					{
 //						Thread trd= new Thread (new SThread());
 //						trd.start();
-						Path path = Paths.get("C:\\Users\\Gabriel\\Desktop\\test.gif");
+						Path path = Paths.get("C:\\Users\\Gabriel\\Desktop\\file.txt");
 						byte[] data = Files.readAllBytes(path);
 						System.out.println(data);
 						byte[] packet=CreateDataPacket("125".getBytes("UTF8"), data);
 						System.out.println(packet);
 						dout.write(packet);
-						
-					
 					}
 					else
 					{
