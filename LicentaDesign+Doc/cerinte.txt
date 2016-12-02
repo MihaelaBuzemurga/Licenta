@@ -1,0 +1,12 @@
+Clasa care se ocupa de baza de date (tot ce inseamna asta ... DbManager)
+-Cum faci cand severul cere mai multe requesturi  ?
+
+
+
+
+-Cum faci sa nu blochezi GUI-ul ?
+( Downloadeaza un pdf foarte mare si vrem sa ..)
+-Cum transmiti mesajele de la client la server ai cum le parsezi  ?
+( mai multe metode, macar 2)
+
+-Schiteaza arhitectura
