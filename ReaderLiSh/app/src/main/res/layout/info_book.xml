@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="?attr/colorSwitchThumbNormal">
+
+    <include layout="@layout/nav_header" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="161dp"
+        android:weightSum="1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="169dp"
+            android:layout_height="171dp"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@mipmap/ic_launcher"
+                android:id="@+id/imageView8"
+                android:src="@mipmap/ic_launcher"
+                tools:ignore="ContentDescription,InefficientWeight" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="188dp"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:textColor="@android:color/black"
+                    android:layout_width="66dp"
+                    android:layout_height="41dp"
+                    android:id="@+id/buttonn"
+                    android:background="?android:attr/textColorSecondary"
+                    android:elevation="0dp"
+                    android:layout_gravity="center"
+                    tools:targetApi="lollipop"
+                    tools:text="Like" />
+
+                <!--<Button-->
+                    <!--android:text="Like"-->
+                    <!--android:textColor="@android:color/white"-->
+                    <!--android:layout_width="66dp"-->
+                    <!--android:layout_height="41dp"-->
+                    <!--android:id="@+id/button"-->
+                    <!--android:background="#6c131a"-->
+                    <!--android:elevation="0dp"-->
+                    <!--android:layout_gravity="center" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:weightSum="1"
+                android:layout_height="30dp">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView3"
+                    android:layout_width="70dp"
+                    android:textColor="@android:color/background_dark"
+                    tools:text="Nume:" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/textView6" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:text="@string/autor"
+                    android:id="@+id/textView4"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:textColor="@android:color/background_dark" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView7"
+                    android:layout_weight="0.87"
+                  />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_weight="0.71"
+                android:weightSum="1"
+                android:layout_height="0dp"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="33dp"
+                    android:id="@+id/textView11"
+                    tools:text="Descriere"
+                    tools:ignore="NestedWeights"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_weight="1.68" />
+
+                <TextView
+                    android:layout_width="107dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/textView8"
+                    tools:ignore="NestedWeights" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
