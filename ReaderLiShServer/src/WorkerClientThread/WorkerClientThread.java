@@ -2,6 +2,7 @@ package WorkerClientThread;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
@@ -11,10 +12,18 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.omg.CORBA.Request;
 
 import Database.ManagerDb;
+import FileManager.Carte;
+import FileManager.FileManager;
+import Mesaj.Mesaj;
+import Mesaj.RequestEnum;
+import Nota.Nota;
 import Reusable.*;
+import SessionManager.SessionManager;
+import TransformerBytes.TransformerBytes;
 import User.User;
 
 public class WorkerClientThread implements Runnable {
@@ -24,15 +33,18 @@ public class WorkerClientThread implements Runnable {
 	private String line;
 	private String nume;
 	Scanner s = new Scanner(System.in);
-	ManagerDb managerDb=null;
+	ManagerDb managerDb = null;
+
 	public WorkerClientThread(Socket recv_socket) {
 		try {
 			System.out.println("Connectat");
-			managerDb= new ManagerDb();
 			target_socket = recv_socket;
 			din = new DataInputStream(target_socket.getInputStream());
 			dout = new DataOutputStream(target_socket.getOutputStream());
 		} catch (IOException ex) {
+			
+			System.out.println("Eroare");
+			
 
 		}
 	}
@@ -40,103 +52,98 @@ public class WorkerClientThread implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			System.out.println("ceva");
-			byte[] cmd_buff = ReadStream();
-			System.out.println(cmd_buff);
-			//String parameter=getNextParameter(cmd_buff);
-			//System.out.println(parameter);
-			ReqeustEnum cmd = ReqeustEnum.values()[1];
-			switch (cmd) {
-			case REQUEST_LOGIN:
-				Login(cmd_buff);
-				break;
-			case REQUEST_REGISTER:
-				break;
+			TransformerBytes mesaj;
+			byte[] initilize = new byte[1];
+			try {
+				din.read(initilize, 0, initilize.length);
+				if (initilize[0] == 2) {
+					byte[] recv_data = ReadStream();
+					if (recv_data != null) {
+						Mesaj newMesaj=null;
+						Mesaj m_mesaj = (Mesaj) SerializationUtils.deserialize(recv_data);
+						switch (m_mesaj.getCmd()) {
+						case REQUEST_LOGIN:
+							newMesaj=SessionManager.getSession().Login((User)m_mesaj.getObiect());
+							 dout.write(TransformerBytes.getDataPacket(newMesaj));
+							 dout.flush();
+							break;
+						case REQUEST_REGISTER:
+							newMesaj=SessionManager.getSession().Register((User)m_mesaj.getObiect());
+							 dout.write(TransformerBytes.getDataPacket(newMesaj));
+							 dout.flush();
+							break;
+						case REQUEST_UPLOAD_FILE:
+							FileManager.getInstance().uploadFile(m_mesaj.getObiect());
+							break;
+						case REQUEST_EDIT_FILE:
+							newMesaj=FileManager.getInstance().updateCarteFromUser((Carte)m_mesaj.getObiect());
+							dout.write(TransformerBytes.getDataPacket(newMesaj));
+							 dout.flush();
+							break;
+						case REQUEST_FILE:
+							Mesaj mesajj=FileManager.getInstance().getFile((Carte)m_mesaj.getObiect());
+							 dout.write(TransformerBytes.getDataPacket(mesajj));
+							 dout.flush();
+							break;
+						case REQUEST_FILE_CONTENT:
+							newMesaj=FileManager.getInstance().getContent((Carte)m_mesaj.getObiect());
+							 dout.write(TransformerBytes.getDataPacket(newMesaj));
+							 dout.flush();
+							break;
+						case REQUEST_BOOKS:
+							newMesaj=FileManager.getInstance().getBooks(m_mesaj.getId());
+							 dout.write(TransformerBytes.getDataPacket(newMesaj));
+							 dout.flush();
+						case REQUEST_GRUP_FOR_SUBSCRIBE:
+							newMesaj=FileManager.getInstance().getGrupForSubscribe();
+							 dout.write(TransformerBytes.getDataPacket(newMesaj));
+							 dout.flush();
+						case REQUEST_ADD_TO_GRUP:
+							newMesaj=FileManager.getInstance().addToGrup(m_mesaj.getId());
+							 dout.write(TransformerBytes.getDataPacket(newMesaj));
+							 dout.flush();
+						case REQUEST_ADD_NOTA:
+							newMesaj=FileManager.getInstance().addNota((Nota) m_mesaj.getObiect());
+							 dout.write(TransformerBytes.getDataPacket(newMesaj));
+							 dout.flush();
+						default:
+							break;
+						}
 
-			default:
-				break;
+					} else {
+						System.out.println("Am primit null");
+					}
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			break;
 			}
-			
+
 		}
 
 	}
 
-	private void Login(byte [] buffer ){
-		System.out.println("Start Login");
-		User utilizator= new User();
-
-		String str=null;
-		try {
-			str = new String(buffer, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		System.out.println(str);
-		utilizator.setNume_utilizator("ogabi");
-		utilizator.setParola("vasile");
-		System.out.println(utilizator.getNume_utilizator());
-		System.out.println(utilizator.getParola());
-		managerDb.Logare(utilizator);
-		if(utilizator.getNume()!=null)
-		{
-			System.out.println("logat");
-		}
-	}
-	private String getNextParameter(byte [] buffer)
-	{
-		String return_string=null;
-		int i=0;
-		int b=0;
-		while((b=buffer[i])!=4)
-		{
-			i++;
-			return_string+=(char)b;
-		}
-		buffer=Arrays.copyOfRange(buffer,return_string.length()+1, buffer.length);
-		return return_string;
-	}
- 
 	private byte[] ReadStream() {
 		byte[] data_buff = null;
 		try {
 			int b = 0;
 			String buff_length = "";
 			while ((b = din.read()) != 4) {
-				System.out.println("Dimensiunea");
 				buff_length += (char) b;
 			}
 			int data_length = Integer.parseInt(buff_length);
 			data_buff = new byte[Integer.parseInt(buff_length)];
-			System.out.println(buff_length);
 			int byte_read = 0;
 			int byte_offset = 0;
 			while (byte_offset < data_length) {
 				byte_read = din.read(data_buff, byte_offset, data_length - byte_offset);
-				System.out.println(byte_read);
 				byte_offset += byte_read;
 			}
 		} catch (IOException ex) {
+
 		}
 		return data_buff;
-	}
-
-	private byte[] CreateDataPacket(byte[] cmd, byte[] data) {
-		byte[] packet = null;
-		try {
-
-			byte[] data_length = String.valueOf(data.length).getBytes("UTF8");
-			byte[] separator = new byte[1];
-			separator[0] = 4;
-			packet = new byte[data_length.length + data.length + separator.length];
-			System.arraycopy(data_length, 0, packet, 0, data_length.length);
-			System.arraycopy(separator, 0, packet, data_length.length, separator.length);
-			System.arraycopy(data, 0, packet, data_length.length + separator.length, data.length);
-
-		} catch (UnsupportedEncodingException ex) {
-
-		}
-		return packet;
 	}
 
 }

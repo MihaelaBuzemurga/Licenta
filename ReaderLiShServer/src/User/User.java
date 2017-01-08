@@ -1,7 +1,9 @@
 package User;
 
-public class User {
-	int id;
+import java.io.Serializable;
+
+public class User implements Serializable{
+	int id=-1;
 	String nume;
 	String prenume;
 	String nume_utilizator;
