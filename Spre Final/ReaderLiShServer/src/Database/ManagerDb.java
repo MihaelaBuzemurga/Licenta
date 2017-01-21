@@ -44,6 +44,7 @@ public class ManagerDb {
 				utilizator.setId(result.getInt("ID"));
 				utilizator.setNume(result.getString("Nume"));
 				utilizator.setPrenume(result.getString("Prenume"));
+				utilizator.setLogat(true);
 			}
 
 		} catch (SQLException e) {
@@ -77,17 +78,19 @@ public class ManagerDb {
 	public User Register(User utilizator) {
 		if (isUserAvailable(utilizator)) {
 			try {
-				String query = "INSERT INTO Users (Nume, Prenume, Nume_utilizator, Parola)  VALUES(?,?,?,?)";
+				String query = "INSERT INTO Users (ID,Nume, Prenume, Nume_utilizator, Parola)  VALUES(NULL,?,?,?,?)";
 				PreparedStatement pState = m_db.getConnection().prepareStatement(query,
 						Statement.RETURN_GENERATED_KEYS);
 				pState.setString(1, utilizator.getNume());
 				pState.setString(2, utilizator.getPrenume());
 				pState.setString(3, utilizator.getNume_utilizator());
 				pState.setString(4, utilizator.getParola());
+				
 				int result = pState.executeUpdate();
 				ResultSet rs = pState.getGeneratedKeys();
 				while (rs.next()) {
 					utilizator.setId(rs.getInt(1));
+					utilizator.setLogat(true);
 				}
 
 			} catch (SQLException e) {
@@ -183,12 +186,12 @@ public class ManagerDb {
 	public Carte[] getBooks(int id) {
 		ResultSet result = null;
 
-		Carte[] carti = new Carte[4];
+		Carte[] carti = new Carte[6];
 		try {
 			String query = "SELECT * FROM Files LIMIT ? OFFSET ?";
 			PreparedStatement pState = m_db.getConnection().prepareStatement(query);
-			pState.setInt(1, 4);
-			pState.setInt(2, id * 4);
+			pState.setInt(1, 6);
+			pState.setInt(2, id * 6);
 			result = pState.executeQuery();
 			int i = 0;
 			while (result.next()) {

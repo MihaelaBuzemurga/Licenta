@@ -8,12 +8,14 @@ public class User implements Serializable{
 	String prenume;
 	String nume_utilizator;
 	String parola;
+	boolean logat;
 
 	public User(){
 		this.nume=null;
 		this.prenume=null;
 		this.nume_utilizator=null;
 		this.parola=null;
+		this.logat=true;
 	}
 	
 	public int getId() {
@@ -54,6 +56,15 @@ public class User implements Serializable{
 
 	public void setParola(String parola) {
 		this.parola = parola;
+	}
+	
+	public void setLogat(boolean var)
+	{
+		logat=var;
+	}
+	public boolean getLogat()
+	{
+		return logat;
 	}
 	
 	

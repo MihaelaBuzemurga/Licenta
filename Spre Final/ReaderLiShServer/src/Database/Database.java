@@ -14,8 +14,7 @@ public class Database {
 		try {
 			Class.forName("org.sqlite.JDBC");	
 			connection = DriverManager.getConnection(
-					"jdbc:sqlite:E:\\Database\\ReaderLiSh.sqlite");
-
+					"jdbc:sqlite:E:\\LicentaCod\\Licenta\\Database\\ReaderLiSh.sqlite");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

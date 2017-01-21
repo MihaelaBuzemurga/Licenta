@@ -44,7 +44,7 @@ public class SessionManager {
 			System.out.println("pregatim");
 			user=ManagerDb.getSession().Logare(user);
 			System.out.println(user.getNume());
-			if (user.getNume() != null) {
+			if (user.getLogat()) {
 				mesaj.setM_raspunsServer(RespondeEnum.LOGIN_SUCCES);
 				Session newSession=new Session(user);
 				String sessionId=SessionIdentifier.nextSessionId();
@@ -75,10 +75,11 @@ public class SessionManager {
 			String sessionId=SessionIdentifier.nextSessionId();
 			user_session.put(sessionId, newSession);
 			mesaj.setObiect(user);
+			mesaj.setM_raspunsServer(RespondeEnum.REGISTER_SUCCES);
 		}
 		else
 		{
-			mesaj.setRaspuns("Utilizatorul exista deja!");
+			mesaj.setM_raspunsServer(RespondeEnum.REGISTER_FAIL);
 		}
 		return mesaj;
 	}

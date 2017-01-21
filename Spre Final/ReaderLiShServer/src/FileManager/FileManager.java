@@ -100,7 +100,7 @@ public class FileManager {
 	private byte[] getFileFromServer(String path_file)
 	{
 		 byte[] data = null;
-		 Path path = Paths.get("C:\\Users\\Gabriel\\Desktop\\test_upload\\Fisiere\\"+path_file);
+		 Path path = Paths.get("C:\\Users\\Mihaela Buzemurga\\Desktop\\test_upload\\Fisiere\\"+path_file);
 		 try {
 			 data = Files.readAllBytes(path);
        } catch (IOException ex) {
@@ -145,7 +145,7 @@ public class FileManager {
 	}
 	private void createDirector(String nume)
 	{
-		File file = new File("C:\\Users\\Gabriel\\Desktop\\test_upload\\Fisiere\\"+nume);
+		File file = new File("C:\\Users\\Mihaela Buzemurga\\Desktop\\test_upload\\Fisiere\\"+nume);
         if (!file.exists()) {
             if (file.mkdir()) {
                 System.out.println("Directory is created!");
@@ -155,7 +155,7 @@ public class FileManager {
         }
 	}
 	private void uploadFileOnFolder(String director,String nume,byte[] continut) {
-		File file = new File("C:\\Users\\Gabriel\\Desktop\\test_upload\\Fisiere\\"+director+"\\"+nume);
+		File file = new File("C:\\Users\\Gabriel\\Mihaela Buzemurga\\test_upload\\Fisiere\\"+director+"\\"+nume);
 		try {
 			if(!file.exists())
 			{
