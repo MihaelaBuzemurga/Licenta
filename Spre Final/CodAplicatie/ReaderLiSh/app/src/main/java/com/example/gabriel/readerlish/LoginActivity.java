@@ -1,10 +1,7 @@
 package com.example.gabriel.readerlish;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     UserLoginTask mAuthTask;
     User m_user;
     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-    ProgressDialog m_pd;
+    ProgressDialog m_progresialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         StrictMode.setThreadPolicy(policy);
@@ -34,9 +31,9 @@ public class LoginActivity extends AppCompatActivity {
         ConnectionManager.getInstance().setContext(this);
         ConnectionManager.getInstance().connectToServer();
 
-        m_pd= new ProgressDialog(this);
-        m_pd.setTitle("Logare!");
-        m_pd.setMessage("Asteapta");
+        m_progresialog = new ProgressDialog(this);
+        m_progresialog.setTitle("Logare!");
+        m_progresialog.setMessage("Asteapta");
 
 
         Intent myIntent = getIntent();
@@ -67,10 +64,15 @@ public class LoginActivity extends AppCompatActivity {
         }
         else
         {
-            m_pd.show();
+            m_progresialog.show();
             mAuthTask=new UserLoginTask(m_nume.getText().toString(),m_parola.getText().toString());
             mAuthTask.execute((Void) null);
         }
+    }
+
+    public void pressRegister(View view) {
+        Intent myIntent=new Intent(LoginActivity.this,RegisterActivity.class);
+        startActivity(myIntent);
     }
 
 
@@ -111,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(final Boolean success) {
-            m_pd.cancel();
+            m_progresialog.cancel();
             mAuthTask = null;
             if(success)
             {
@@ -130,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            m_pd.cancel();
+            m_progresialog.cancel();
 
         }
 

@@ -37,7 +37,7 @@ public class ConnectionManager {
     private ConnectionManager(){
         try{
             isConnected=false;
-            serverIpAddress = "192.168.0.101";
+            serverIpAddress = "192.168.0.172";
             serverAddr = InetAddress.getByName(serverIpAddress);
             addr = new InetSocketAddress(serverAddr, 9090);
             socket = new Socket();

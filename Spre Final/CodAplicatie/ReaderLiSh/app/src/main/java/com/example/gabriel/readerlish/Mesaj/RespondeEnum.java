@@ -9,7 +9,8 @@ import java.io.Serializable;
 public enum RespondeEnum  implements Serializable {
     LOGIN_SUCCES(100),
     LOGIN_FAIL(101),
-    REQUEST_REGISTER(102);
+    REGISTER_SUCCES(102),
+    REGISTER_FAIL(103);
 
     private final int value;
     RespondeEnum(int value) { this.value = value; }

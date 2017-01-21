@@ -1,8 +1,8 @@
 package com.example.gabriel.readerlish;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -11,22 +11,19 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gabriel.readerlish.Carte.Carte;
 import com.example.gabriel.readerlish.ConnectionManager.ConnectionManager;
 import com.example.gabriel.readerlish.Mesaj.Mesaj;
 import com.example.gabriel.readerlish.Mesaj.RequestEnum;
-import com.example.gabriel.readerlish.Mesaj.RespondeEnum;
-import com.example.gabriel.readerlish.R;
-import com.example.gabriel.readerlish.User.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +33,24 @@ import java.util.List;
  */
 
 public class AllBooks extends Fragment{
-    private List<Car> myCars = new ArrayList<Car>();
+    private List<CartiRepository> myCartiRepositories_allBooks = new ArrayList<CartiRepository>();
+    private List<CartiRepository> myCartiRepositories_yourBooks = new ArrayList<CartiRepository>();
+    ArrayAdapter<CartiRepository> adapter;
+    ArrayAdapter<CartiRepository> adapterYourBooks;
     private LayoutInflater myInflater;
-    UserLoginTask mAuthTask;
+
     ProgressDialog m_pd;
+
+    GetAllBooksTask m_allBooksTask;
+    ListView m_listAllBooks;
+    int m_paginaAllBooks=0;
+    boolean m_finishAllBooks;
+
+
+    GetYourBooksTask m_yourBooksTask;
+    ListView m_listYourBooks;
+    int m_paginaYourBooks=0;
+    boolean m_finishYourBooks;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +62,40 @@ public class AllBooks extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.all_books,container,false);
         myInflater=inflater;
-        TabHost tabhost =(TabHost) myView.findViewById(R.id.tabhost);
-        tabhost.setup();
+        m_finishAllBooks =false;
+        m_paginaAllBooks =0;
 
+        createTabHost();
+        setProgressDialog();
+
+        populateListViewAllBooks();
+        registerClickCallback();
+        startGetAllBooks();
+
+        return myView;
+    }
+    private void startGetAllBooks()
+    {
+        m_pd.show();
+        m_allBooksTask =new GetAllBooksTask(m_paginaAllBooks);
+        m_allBooksTask.execute((Void) null);
+    }
+    private void startGetYourBooks()
+    {
+        m_pd.show();
+        m_yourBooksTask =new GetYourBooksTask(m_paginaYourBooks);
+        m_yourBooksTask.execute((Void) null);
+    }
+    private void setProgressDialog()
+    {
         m_pd= new ProgressDialog(myView.getContext());
         m_pd.setTitle("Incarcare!");
         m_pd.setMessage("Asteapta");
+    }
+    private void createTabHost()
+    {
+        TabHost tabhost =(TabHost) myView.findViewById(R.id.tabhost);
+        tabhost.setup();
         TabHost.TabSpec allBooks=tabhost.newTabSpec("Toate cartile");
         allBooks.setContent(R.id.tab1);
         allBooks.setIndicator("Toate cartile");
@@ -67,33 +106,57 @@ public class AllBooks extends Fragment{
 
         tabhost.addTab(allBooks);
         tabhost.addTab(yourBooks);
-
-       m_pd.show();
-        mAuthTask=new UserLoginTask(0);
-        mAuthTask.execute((Void) null);
-        return myView;
     }
 
-    private void populateCarList() {
-        Mesaj mesaj=new Mesaj();
-        mesaj.setId(0);
-        mesaj.setCmd(RequestEnum.REQUEST_BOOKS);
-        Mesaj mesajj= (Mesaj) ConnectionManager.getInstance().sendMessage(mesaj);
-        Carte[] carti=(Carte[])mesajj.getObiect();
-        for(int i=0;i<carti.length;i++)
-        {
-            if(carti[i]!=null) {
-                Bitmap bmp = BitmapFactory.decodeByteArray(carti[i].getImagine(), 0, carti[i].getImagine().length);
-                myCars.add(new Car(carti[i].getNume(), carti[i].getID(), R.drawable.ic_menu_send, carti[i].getAutor(),bmp));
+    private void populateListViewAllBooks() {
+        adapter = new MyListAdapterAllBooks();
+        adapterYourBooks= new MyListAdapterAllBooks();
+
+        m_listAllBooks = (ListView) myView.findViewById(R.id.listView);
+        m_listAllBooks.setAdapter(adapter);
+        m_listAllBooks.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
+                        && (m_listAllBooks.getLastVisiblePosition() - m_listAllBooks.getHeaderViewsCount() -
+                        m_listAllBooks.getFooterViewsCount()) >= (m_listAllBooks.getAdapter().getCount() - 1)) {
+                    if (!m_finishAllBooks) {
+                        m_paginaAllBooks++;
+                        startGetAllBooks();
+
+                    }
+                }
+            }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
             }
-        }
-    }
+        });
 
-    private void populateListView() {
-        ArrayAdapter<Car> adapter = new MyListAdapter();
-        ListView list = (ListView) myView.findViewById(R.id.listView);
-        list.setAdapter(adapter);
+        m_listYourBooks = (ListView) myView.findViewById(R.id.listView2);
+        m_listYourBooks.setAdapter(adapterYourBooks);
+        m_listYourBooks.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
+                        && (m_listYourBooks.getLastVisiblePosition() - m_listYourBooks.getHeaderViewsCount() -
+                        m_listYourBooks.getFooterViewsCount()) >= (m_listYourBooks.getAdapter().getCount() - 1)) {
+                    if (!m_finishYourBooks) {
+                        m_paginaYourBooks++;
+                        startGetAllBooks();
+
+                    }
+                }
+            }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
+
     }
 
     private void registerClickCallback() {
@@ -103,17 +166,30 @@ public class AllBooks extends Fragment{
             public void onItemClick(AdapterView<?> parent, View viewClicked,
                                     int position, long id) {
 
-                Car clickedCar = myCars.get(position);
-                String message = "You clicked position " + position
-                        + " Which is car make " + clickedCar.getMake();
-               System.out.println(message);
+                CartiRepository clickedCartiRepository = myCartiRepositories_allBooks.get(position);
+
+                Dialog dialog=new Dialog(myView.getContext());
+                dialog.setTitle("Carte");
+                dialog.setContentView(R.layout.book_layout);
+                dialog.show();
+
+            }
+        });
+        ListView list2 = (ListView) myView.findViewById(R.id.listView2);
+        list2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View viewClicked,
+                                    int position, long id) {
+
+                CartiRepository clickedCartiRepository = myCartiRepositories_yourBooks.get(position);
+
             }
         });
     }
 
-    private class MyListAdapter extends ArrayAdapter<Car> {
-        public MyListAdapter() {
-            super(myView.getContext(), R.layout.item_view, myCars);
+    private class MyListAdapterAllBooks extends ArrayAdapter<CartiRepository> {
+        public MyListAdapterAllBooks() {
+            super(myView.getContext(), R.layout.item_view, myCartiRepositories_allBooks);
         }
 
         @Override
@@ -123,45 +199,71 @@ public class AllBooks extends Fragment{
             if (itemView == null) {
                 itemView = myInflater.inflate(R.layout.item_view, parent, false);
             }
+            CartiRepository currentCartiRepository = myCartiRepositories_allBooks.get(position);
 
-            // Find the car to work with.
-            Car currentCar = myCars.get(position);
+            ImageView imageView = (ImageView)itemView.findViewById(R.id.imagine_carte);
+            imageView.setImageBitmap(currentCartiRepository.getImagine());
 
-            // Fill the view
-            ImageView imageView = (ImageView)itemView.findViewById(R.id.item_icon);
-            imageView.setImageBitmap(currentCar.getImagine());
+            TextView gen_carte = (TextView) itemView.findViewById(R.id.gen_carte);
+            gen_carte.setText("" + currentCartiRepository.getM_gen());
 
-            // Make:
-            TextView makeText = (TextView) itemView.findViewById(R.id.item_txtMake);
-            makeText.setText(currentCar.getMake());
+            TextView nota_carte = (TextView) itemView.findViewById(R.id.nota_carte);
+            nota_carte.setText("" + currentCartiRepository.getNota());
 
-            // Year:
-            TextView yearText = (TextView) itemView.findViewById(R.id.item_txtYear);
-            yearText.setText("" + currentCar.getYear());
+            TextView autor = (TextView) itemView.findViewById(R.id.autor_carte);
+            autor.setText("" + currentCartiRepository.getM_autor());
 
-            // Condition:
-            TextView condionText = (TextView) itemView.findViewById(R.id.item_txtCondition);
-            condionText.setText(currentCar.getCondition());
+            TextView titlu_carte = (TextView) itemView.findViewById(R.id.titlu_carte);
+            titlu_carte.setText(currentCartiRepository.getM_nume());
 
             return itemView;
         }
     }
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-       private int nr;
-        private Mesaj m_mesaj;
-
-        UserLoginTask(int id) {
-           this.nr=id;
+    private class MyListAdapterYourBooks extends ArrayAdapter<CartiRepository> {
+        public MyListAdapterYourBooks() {
+            super(myView.getContext(), R.layout.item_view, myCartiRepositories_yourBooks);
         }
 
         @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Make sure we have a view to work with (may have been given null)
+            View itemView = convertView;
+            if (itemView == null) {
+                itemView = myInflater.inflate(R.layout.item_view, parent, false);
+            }
+            CartiRepository currentCartiRepository = myCartiRepositories_yourBooks.get(position);
+
+            ImageView imageView = (ImageView)itemView.findViewById(R.id.imagine_carte);
+            imageView.setImageBitmap(currentCartiRepository.getImagine());
+
+            TextView gen_carte = (TextView) itemView.findViewById(R.id.gen_carte);
+            gen_carte.setText("" + currentCartiRepository.getM_gen());
+
+            TextView nota_carte = (TextView) itemView.findViewById(R.id.nota_carte);
+            nota_carte.setText("" + currentCartiRepository.getNota());
+
+            TextView autor = (TextView) itemView.findViewById(R.id.autor_carte);
+            autor.setText("" + currentCartiRepository.getM_autor());
+
+            TextView titlu_carte = (TextView) itemView.findViewById(R.id.titlu_carte);
+            titlu_carte.setText(currentCartiRepository.getM_nume());
+
+            return itemView;
+        }
+    }
+    public class GetAllBooksTask extends AsyncTask<Void, Void, Boolean> {
+        private int nr;
+        private Mesaj m_mesaj;
+
+        GetAllBooksTask(int nr) {
+            this.nr=nr;
+        }
+        @Override
         protected Boolean doInBackground(Void... params) {
             Mesaj mesaj=new Mesaj();
-            mesaj.setId(0);
+            mesaj.setId(nr);
             mesaj.setCmd(RequestEnum.REQUEST_BOOKS);
             m_mesaj= (Mesaj) ConnectionManager.getInstance().sendMessage(mesaj);
-
             if(m_mesaj!=null) {
 
                 return true;
@@ -175,7 +277,7 @@ public class AllBooks extends Fragment{
         @Override
         protected void onPostExecute(final Boolean success) {
             m_pd.cancel();
-            mAuthTask = null;
+            m_allBooksTask = null;
             if(success)
             {
                 Carte[] carti=(Carte[])m_mesaj.getObiect();
@@ -183,28 +285,73 @@ public class AllBooks extends Fragment{
                 {
                     if(carti[i]!=null) {
                         Bitmap bmp = BitmapFactory.decodeByteArray(carti[i].getImagine(), 0, carti[i].getImagine().length);
-                        myCars.add(new Car(carti[i].getNume(), carti[i].getID(), R.drawable.ic_menu_send, carti[i].getAutor(),bmp));
-
+                        myCartiRepositories_allBooks.add(new CartiRepository(carti[i].getNume(),carti[i].getGen(),String.valueOf(carti[i].getNota()),carti[i].getAutor(),bmp));
+                    }
+                    else
+                    {
+                        m_finishAllBooks = true;
                     }
                 }
-                populateListView();
-                registerClickCallback();
+                adapter.notifyDataSetChanged();
+            }
+        }
+        @Override
+        protected void onCancelled() {
+            m_allBooksTask = null;
+            m_pd.cancel();
+        }
+    }
+
+    public class GetYourBooksTask extends AsyncTask<Void, Void, Boolean> {
+        private int nr;
+        private Mesaj m_mesaj;
+
+        GetYourBooksTask(int nr) {
+            this.nr=nr;
+        }
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Mesaj mesaj=new Mesaj();
+            mesaj.setId(nr);
+            mesaj.setCmd(RequestEnum.REQUEST_BOOKS);
+            m_mesaj= (Mesaj) ConnectionManager.getInstance().sendMessage(mesaj);
+            if(m_mesaj!=null) {
+
+                return true;
             }
             else
             {
+                return false;
+            }
 
+        }
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            m_pd.cancel();
+            m_yourBooksTask = null;
+            if(success)
+            {
+                Carte[] carti=(Carte[])m_mesaj.getObiect();
+                for(int i=0;i<carti.length;i++)
+                {
+                    if(carti[i]!=null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(carti[i].getImagine(), 0, carti[i].getImagine().length);
+                        myCartiRepositories_yourBooks.add(new CartiRepository(carti[i].getNume(),carti[i].getGen(),String.valueOf(carti[i].getNota()),carti[i].getAutor(),bmp));
+                    }
+                    else
+                    {
+                        m_finishYourBooks = true;
+                    }
+                }
+                adapterYourBooks.notifyDataSetChanged();
             }
         }
-
         @Override
         protected void onCancelled() {
-            mAuthTask = null;
+            m_yourBooksTask = null;
             m_pd.cancel();
-
         }
-
-
-
     }
+
 
 }
