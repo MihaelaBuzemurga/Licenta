@@ -8,10 +8,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import com.example.gabriel.readerlish.Carte.Carte;
+import com.example.gabriel.readerlish.Grup.Grup;
+import com.example.gabriel.readerlish.Mesaj.Mesaj;
+import com.example.gabriel.readerlish.Nota.Nota;
+
 import Database.ManagerDb;
-import Grup.Grup;
-import Mesaj.Mesaj;
-import Nota.Nota;
 import TransformerBytes.TransformerBytes;
 
 public class FileManager {
@@ -32,9 +34,8 @@ public class FileManager {
 		Mesaj mesaj=new Mesaj();
 		carte=ManagerDb.getSession().getCarte(carte);
 		carte.setImagine(getFileFromServer(carte.getCale_img()));
-		System.out.println(carte.getNume());
+		carte.setGen(ManagerDb.getSession().getGen(carte.getID()));
 		mesaj.setObiect(carte);
-		
 		return mesaj;
 
 	}
@@ -48,14 +49,20 @@ public class FileManager {
 		return mesaj;
 
 	}
-	public Mesaj getBooks(int id) {
-		Carte []carte=ManagerDb.getSession().getBooks(id);
+	public Mesaj getBooks(int pagina) {
+		Carte []carte=ManagerDb.getSession().getBooks(pagina);
+		for(int i=0;i<carte.length;i++)
+		{
+			if(carte[i]!=null)
+			{
+				carte[i].setImagine(getFileFromServer(carte[i].getCale_img().replaceFirst("^/(.:/)", "$1")));
+				carte[i].setGen(ManagerDb.getSession().getGen(carte[i].getId_gen()));
+			}
+		}
 		Mesaj mesaj=new Mesaj();
 		mesaj.setObiect(carte);
 		return mesaj;
-
 	}
-	
 	public Mesaj getGrupForSubscribe()
 	{
 		int id=1;
@@ -93,7 +100,7 @@ public class FileManager {
 	private byte[] getFileFromServer(String path_file)
 	{
 		 byte[] data = null;
-		 Path path = Paths.get("C:\\Users\\Gabriel\\Desktop\\test_upload\\Fisiere\\"+path_file);
+		 Path path = Paths.get("test_upload\\Fisiere\\"+path_file);
 		 try {
 			 data = Files.readAllBytes(path);
        } catch (IOException ex) {
@@ -138,7 +145,7 @@ public class FileManager {
 	}
 	private void createDirector(String nume)
 	{
-		File file = new File("C:\\Users\\Gabriel\\Desktop\\test_upload\\Fisiere\\"+nume);
+		File file = new File("test_upload\\Fisiere\\"+nume);
         if (!file.exists()) {
             if (file.mkdir()) {
                 System.out.println("Directory is created!");
@@ -148,7 +155,7 @@ public class FileManager {
         }
 	}
 	private void uploadFileOnFolder(String director,String nume,byte[] continut) {
-		File file = new File("C:\\Users\\Gabriel\\Desktop\\test_upload\\Fisiere\\"+director+"\\"+nume);
+		File file = new File("test_upload\\Fisiere\\"+director+"\\"+nume);
 		try {
 			if(!file.exists())
 			{

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="CARTI" msprop:Generator_TableClassName="CARTIDataTable" msprop:Generator_TableVarName="tableCARTI" msprop:Generator_TablePropName="CARTI" msprop:Generator_RowDeletingName="CARTIRowDeleting" msprop:Generator_RowChangingName="CARTIRowChanging" msprop:Generator_RowEvHandlerName="CARTIRowChangeEventHandler" msprop:Generator_RowDeletedName="CARTIRowDeleted" msprop:Generator_UserTableName="CARTI" msprop:Generator_RowChangedName="CARTIRowChanged" msprop:Generator_RowEvArgName="CARTIRowChangeEvent" msprop:Generator_RowClassName="CARTIRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" minOccurs="0" />
+              <xs:element name="NUME" msprop:Generator_ColumnVarNameInTable="columnNUME" msprop:Generator_ColumnPropNameInRow="NUME" msprop:Generator_ColumnPropNameInTable="NUMEColumn" msprop:Generator_UserColumnName="NUME" type="xs:string" minOccurs="0" />
+              <xs:element name="AUTOR" msprop:Generator_ColumnVarNameInTable="columnAUTOR" msprop:Generator_ColumnPropNameInRow="AUTOR" msprop:Generator_ColumnPropNameInTable="AUTORColumn" msprop:Generator_UserColumnName="AUTOR" type="xs:string" minOccurs="0" />
+              <xs:element name="UTILIZATOR_ID" msprop:Generator_ColumnVarNameInTable="columnUTILIZATOR_ID" msprop:Generator_ColumnPropNameInRow="UTILIZATOR_ID" msprop:Generator_ColumnPropNameInTable="UTILIZATOR_IDColumn" msprop:Generator_UserColumnName="UTILIZATOR_ID" type="xs:string" minOccurs="0" />
+              <xs:element name="CALE_PDF" msprop:Generator_ColumnVarNameInTable="columnCALE_PDF" msprop:Generator_ColumnPropNameInRow="CALE_PDF" msprop:Generator_ColumnPropNameInTable="CALE_PDFColumn" msprop:Generator_UserColumnName="CALE_PDF" type="xs:string" minOccurs="0" />
+              <xs:element name="GENURI" msprop:Generator_ColumnVarNameInTable="columnGENURI" msprop:Generator_ColumnPropNameInRow="GENURI" msprop:Generator_ColumnPropNameInTable="GENURIColumn" msprop:Generator_UserColumnName="GENURI" type="xs:string" minOccurs="0" />
+              <xs:element name="DESCRIERE" msprop:Generator_ColumnVarNameInTable="columnDESCRIERE" msprop:Generator_ColumnPropNameInRow="DESCRIERE" msprop:Generator_ColumnPropNameInTable="DESCRIEREColumn" msprop:Generator_UserColumnName="DESCRIERE" type="xs:string" minOccurs="0" />
+              <xs:element name="NOTA" msprop:Generator_ColumnVarNameInTable="columnNOTA" msprop:Generator_ColumnPropNameInRow="NOTA" msprop:Generator_ColumnPropNameInTable="NOTAColumn" msprop:Generator_UserColumnName="NOTA" type="xs:string" minOccurs="0" />
+              <xs:element name="NR_VOT" msprop:Generator_ColumnVarNameInTable="columnNR_VOT" msprop:Generator_ColumnPropNameInRow="NR_VOT" msprop:Generator_ColumnPropNameInTable="NR_VOTColumn" msprop:Generator_UserColumnName="NR_VOT" type="xs:string" minOccurs="0" />
+              <xs:element name="CALE_IMG" msprop:Generator_ColumnVarNameInTable="columnCALE_IMG" msprop:Generator_ColumnPropNameInRow="CALE_IMG" msprop:Generator_ColumnPropNameInTable="CALE_IMGColumn" msprop:Generator_UserColumnName="CALE_IMG" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GENURI" msprop:Generator_TableClassName="GENURIDataTable" msprop:Generator_TableVarName="tableGENURI" msprop:Generator_TablePropName="GENURI" msprop:Generator_RowDeletingName="GENURIRowDeleting" msprop:Generator_RowChangingName="GENURIRowChanging" msprop:Generator_RowEvHandlerName="GENURIRowChangeEventHandler" msprop:Generator_RowDeletedName="GENURIRowDeleted" msprop:Generator_UserTableName="GENURI" msprop:Generator_RowChangedName="GENURIRowChanged" msprop:Generator_RowEvArgName="GENURIRowChangeEvent" msprop:Generator_RowClassName="GENURIRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" minOccurs="0" />
+              <xs:element name="NUME" msprop:Generator_ColumnVarNameInTable="columnNUME" msprop:Generator_ColumnPropNameInRow="NUME" msprop:Generator_ColumnPropNameInTable="NUMEColumn" msprop:Generator_UserColumnName="NUME" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="UTILIZATORI" msprop:Generator_TableClassName="UTILIZATORIDataTable" msprop:Generator_TableVarName="tableUTILIZATORI" msprop:Generator_TablePropName="UTILIZATORI" msprop:Generator_RowDeletingName="UTILIZATORIRowDeleting" msprop:Generator_RowChangingName="UTILIZATORIRowChanging" msprop:Generator_RowEvHandlerName="UTILIZATORIRowChangeEventHandler" msprop:Generator_RowDeletedName="UTILIZATORIRowDeleted" msprop:Generator_UserTableName="UTILIZATORI" msprop:Generator_RowChangedName="UTILIZATORIRowChanged" msprop:Generator_RowEvArgName="UTILIZATORIRowChangeEvent" msprop:Generator_RowClassName="UTILIZATORIRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" minOccurs="0" />
+              <xs:element name="NUME" msprop:Generator_ColumnVarNameInTable="columnNUME" msprop:Generator_ColumnPropNameInRow="NUME" msprop:Generator_ColumnPropNameInTable="NUMEColumn" msprop:Generator_UserColumnName="NUME" type="xs:string" minOccurs="0" />
+              <xs:element name="PRENUME" msprop:Generator_ColumnVarNameInTable="columnPRENUME" msprop:Generator_ColumnPropNameInRow="PRENUME" msprop:Generator_ColumnPropNameInTable="PRENUMEColumn" msprop:Generator_UserColumnName="PRENUME" type="xs:string" minOccurs="0" />
+              <xs:element name="NUME_UTILIZATOR" msprop:Generator_ColumnVarNameInTable="columnNUME_UTILIZATOR" msprop:Generator_ColumnPropNameInRow="NUME_UTILIZATOR" msprop:Generator_ColumnPropNameInTable="NUME_UTILIZATORColumn" msprop:Generator_UserColumnName="NUME_UTILIZATOR" type="xs:string" minOccurs="0" />
+              <xs:element name="PAROLA" msprop:Generator_ColumnVarNameInTable="columnPAROLA" msprop:Generator_ColumnPropNameInRow="PAROLA" msprop:Generator_ColumnPropNameInTable="PAROLAColumn" msprop:Generator_UserColumnName="PAROLA" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GEN_CARTI" msprop:Generator_TableClassName="GEN_CARTIDataTable" msprop:Generator_TableVarName="tableGEN_CARTI" msprop:Generator_TablePropName="GEN_CARTI" msprop:Generator_RowDeletingName="GEN_CARTIRowDeleting" msprop:Generator_RowChangingName="GEN_CARTIRowChanging" msprop:Generator_RowEvHandlerName="GEN_CARTIRowChangeEventHandler" msprop:Generator_RowDeletedName="GEN_CARTIRowDeleted" msprop:Generator_UserTableName="GEN_CARTI" msprop:Generator_RowChangedName="GEN_CARTIRowChanged" msprop:Generator_RowEvArgName="GEN_CARTIRowChangeEvent" msprop:Generator_RowClassName="GEN_CARTIRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID_CARTE" msprop:Generator_ColumnVarNameInTable="columnID_CARTE" msprop:Generator_ColumnPropNameInRow="ID_CARTE" msprop:Generator_ColumnPropNameInTable="ID_CARTEColumn" msprop:Generator_UserColumnName="ID_CARTE" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_GENURI" msprop:Generator_ColumnVarNameInTable="columnID_GENURI" msprop:Generator_ColumnPropNameInRow="ID_GENURI" msprop:Generator_ColumnPropNameInTable="ID_GENURIColumn" msprop:Generator_UserColumnName="ID_GENURI" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GRUPURI" msprop:Generator_TableClassName="GRUPURIDataTable" msprop:Generator_TableVarName="tableGRUPURI" msprop:Generator_TablePropName="GRUPURI" msprop:Generator_RowDeletingName="GRUPURIRowDeleting" msprop:Generator_RowChangingName="GRUPURIRowChanging" msprop:Generator_RowEvHandlerName="GRUPURIRowChangeEventHandler" msprop:Generator_RowDeletedName="GRUPURIRowDeleted" msprop:Generator_UserTableName="GRUPURI" msprop:Generator_RowChangedName="GRUPURIRowChanged" msprop:Generator_RowEvArgName="GRUPURIRowChangeEvent" msprop:Generator_RowClassName="GRUPURIRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID_GENURI" msprop:Generator_ColumnVarNameInTable="columnID_GENURI" msprop:Generator_ColumnPropNameInRow="ID_GENURI" msprop:Generator_ColumnPropNameInTable="ID_GENURIColumn" msprop:Generator_UserColumnName="ID_GENURI" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_UTILIZATOR" msprop:Generator_ColumnVarNameInTable="columnID_UTILIZATOR" msprop:Generator_ColumnPropNameInRow="ID_UTILIZATOR" msprop:Generator_ColumnPropNameInTable="ID_UTILIZATORColumn" msprop:Generator_UserColumnName="ID_UTILIZATOR" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RECOMANDARE" msprop:Generator_TableClassName="RECOMANDAREDataTable" msprop:Generator_TableVarName="tableRECOMANDARE" msprop:Generator_TablePropName="RECOMANDARE" msprop:Generator_RowDeletingName="RECOMANDARERowDeleting" msprop:Generator_RowChangingName="RECOMANDARERowChanging" msprop:Generator_RowEvHandlerName="RECOMANDARERowChangeEventHandler" msprop:Generator_RowDeletedName="RECOMANDARERowDeleted" msprop:Generator_UserTableName="RECOMANDARE" msprop:Generator_RowChangedName="RECOMANDARERowChanged" msprop:Generator_RowEvArgName="RECOMANDARERowChangeEvent" msprop:Generator_RowClassName="RECOMANDARERow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID_CARTE" msprop:Generator_ColumnVarNameInTable="columnID_CARTE" msprop:Generator_ColumnPropNameInRow="ID_CARTE" msprop:Generator_ColumnPropNameInTable="ID_CARTEColumn" msprop:Generator_UserColumnName="ID_CARTE" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_UTILIZATOR_INITIERE" msprop:Generator_ColumnVarNameInTable="columnID_UTILIZATOR_INITIERE" msprop:Generator_ColumnPropNameInRow="ID_UTILIZATOR_INITIERE" msprop:Generator_ColumnPropNameInTable="ID_UTILIZATOR_INITIEREColumn" msprop:Generator_UserColumnName="ID_UTILIZATOR_INITIERE" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_UTILIZATOR_PRIMIRE" msprop:Generator_ColumnVarNameInTable="columnID_UTILIZATOR_PRIMIRE" msprop:Generator_ColumnPropNameInRow="ID_UTILIZATOR_PRIMIRE" msprop:Generator_ColumnPropNameInTable="ID_UTILIZATOR_PRIMIREColumn" msprop:Generator_UserColumnName="ID_UTILIZATOR_PRIMIRE" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VREAU_SA_CITESC" msprop:Generator_TableClassName="VREAU_SA_CITESCDataTable" msprop:Generator_TableVarName="tableVREAU_SA_CITESC" msprop:Generator_TablePropName="VREAU_SA_CITESC" msprop:Generator_RowDeletingName="VREAU_SA_CITESCRowDeleting" msprop:Generator_RowChangingName="VREAU_SA_CITESCRowChanging" msprop:Generator_RowEvHandlerName="VREAU_SA_CITESCRowChangeEventHandler" msprop:Generator_RowDeletedName="VREAU_SA_CITESCRowDeleted" msprop:Generator_UserTableName="VREAU_SA_CITESC" msprop:Generator_RowChangedName="VREAU_SA_CITESCRowChanged" msprop:Generator_RowEvArgName="VREAU_SA_CITESCRowChangeEvent" msprop:Generator_RowClassName="VREAU_SA_CITESCRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID_UTILIZATOR" msprop:Generator_ColumnVarNameInTable="columnID_UTILIZATOR" msprop:Generator_ColumnPropNameInRow="ID_UTILIZATOR" msprop:Generator_ColumnPropNameInTable="ID_UTILIZATORColumn" msprop:Generator_UserColumnName="ID_UTILIZATOR" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_CARTE" msprop:Generator_ColumnVarNameInTable="columnID_CARTE" msprop:Generator_ColumnPropNameInRow="ID_CARTE" msprop:Generator_ColumnPropNameInTable="ID_CARTEColumn" msprop:Generator_UserColumnName="ID_CARTE" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,6 +1,6 @@
 package SessionManager;
 
-import User.User;
+import com.example.gabriel.readerlish.User.User;
 
 public class Session {
 	

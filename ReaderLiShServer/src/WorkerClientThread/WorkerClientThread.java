@@ -15,16 +15,17 @@ import java.util.Scanner;
 import org.apache.commons.lang3.SerializationUtils;
 import org.omg.CORBA.Request;
 
+import com.example.gabriel.readerlish.Carte.Carte;
+import com.example.gabriel.readerlish.Mesaj.Mesaj;
+import com.example.gabriel.readerlish.Mesaj.RequestEnum;
+import com.example.gabriel.readerlish.Nota.Nota;
+import com.example.gabriel.readerlish.User.User;
+
 import Database.ManagerDb;
-import FileManager.Carte;
 import FileManager.FileManager;
-import Mesaj.Mesaj;
-import Mesaj.RequestEnum;
-import Nota.Nota;
 import Reusable.*;
 import SessionManager.SessionManager;
 import TransformerBytes.TransformerBytes;
-import User.User;
 
 public class WorkerClientThread implements Runnable {
 	private Socket target_socket;
@@ -94,18 +95,22 @@ public class WorkerClientThread implements Runnable {
 							newMesaj=FileManager.getInstance().getBooks(m_mesaj.getId());
 							 dout.write(TransformerBytes.getDataPacket(newMesaj));
 							 dout.flush();
+							 break;
 						case REQUEST_GRUP_FOR_SUBSCRIBE:
 							newMesaj=FileManager.getInstance().getGrupForSubscribe();
 							 dout.write(TransformerBytes.getDataPacket(newMesaj));
 							 dout.flush();
+							 break;
 						case REQUEST_ADD_TO_GRUP:
 							newMesaj=FileManager.getInstance().addToGrup(m_mesaj.getId());
 							 dout.write(TransformerBytes.getDataPacket(newMesaj));
 							 dout.flush();
+							 break;
 						case REQUEST_ADD_NOTA:
 							newMesaj=FileManager.getInstance().addNota((Nota) m_mesaj.getObiect());
 							 dout.write(TransformerBytes.getDataPacket(newMesaj));
 							 dout.flush();
+							 break;
 						default:
 							break;
 						}

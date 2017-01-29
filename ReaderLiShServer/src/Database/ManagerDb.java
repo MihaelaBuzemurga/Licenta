@@ -8,11 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import FileManager.Carte;
-import Grup.Grup;
-import Mesaj.Mesaj;
-import Nota.Nota;
-import User.*;
+import com.example.gabriel.readerlish.Carte.Carte;
+import com.example.gabriel.readerlish.Grup.Grup;
+import com.example.gabriel.readerlish.Mesaj.Mesaj;
+import com.example.gabriel.readerlish.Nota.Nota;
+import com.example.gabriel.readerlish.User.*;
 
 public class ManagerDb {
 
@@ -30,8 +30,27 @@ public class ManagerDb {
 		}
 		return manager_db;
 	}
+	public synchronized String getGen(int idGen)
+	{
+		ResultSet result = null;
+		String numeGen = "";
 
-	public User Logare(User utilizator) {
+		try {
+			String query = "SELECT * FROM GEN  WHERE ID=?";
+			PreparedStatement pState = m_db.getConnection().prepareStatement(query);
+			pState.setInt(1, idGen);
+			result = pState.executeQuery();
+			while (result.next()) {
+				numeGen=result.getString("NUME");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return numeGen;
+	}
+	public synchronized User Logare(User utilizator) {
 		ResultSet result = null;
 
 		try {
@@ -44,6 +63,7 @@ public class ManagerDb {
 				utilizator.setId(result.getInt("ID"));
 				utilizator.setNume(result.getString("Nume"));
 				utilizator.setPrenume(result.getString("Prenume"));
+				utilizator.setLogat(true);
 			}
 
 		} catch (SQLException e) {
@@ -77,17 +97,19 @@ public class ManagerDb {
 	public User Register(User utilizator) {
 		if (isUserAvailable(utilizator)) {
 			try {
-				String query = "INSERT INTO Users (Nume, Prenume, Nume_utilizator, Parola)  VALUES(?,?,?,?)";
+				String query = "INSERT INTO Users (ID,Nume, Prenume, Nume_utilizator, Parola)  VALUES(NULL,?,?,?,?)";
 				PreparedStatement pState = m_db.getConnection().prepareStatement(query,
 						Statement.RETURN_GENERATED_KEYS);
 				pState.setString(1, utilizator.getNume());
 				pState.setString(2, utilizator.getPrenume());
 				pState.setString(3, utilizator.getNume_utilizator());
 				pState.setString(4, utilizator.getParola());
+				
 				int result = pState.executeUpdate();
 				ResultSet rs = pState.getGeneratedKeys();
 				while (rs.next()) {
 					utilizator.setId(rs.getInt(1));
+					utilizator.setLogat(true);
 				}
 
 			} catch (SQLException e) {
@@ -168,7 +190,7 @@ public class ManagerDb {
 				carte.setCale(result.getString("Cale_pdf"));
 				carte.setId_gen(result.getInt("Gen"));
 				carte.setDescriere(result.getString("Descriere"));
-				carte.setNota(result.getInt("NOTA"));
+				carte.setNota(result.getFloat("NOTA"));
 				carte.setNr_votanti(result.getInt("NR_VOT"));
 				carte.setCale_img(result.getString("Cale_img"));
 			}
@@ -183,12 +205,12 @@ public class ManagerDb {
 	public Carte[] getBooks(int id) {
 		ResultSet result = null;
 
-		Carte[] carti = new Carte[4];
+		Carte[] carti = new Carte[6];
 		try {
 			String query = "SELECT * FROM Files LIMIT ? OFFSET ?";
 			PreparedStatement pState = m_db.getConnection().prepareStatement(query);
-			pState.setInt(1, 4);
-			pState.setInt(2, id * 4);
+			pState.setInt(1, 6);
+			pState.setInt(2, id * 6);
 			result = pState.executeQuery();
 			int i = 0;
 			while (result.next()) {
@@ -199,11 +221,10 @@ public class ManagerDb {
 				carte.setCale(result.getString("Cale_pdf"));
 				carte.setId_gen(result.getInt("Gen"));
 				carte.setDescriere(result.getString("Descriere"));
-				carte.setNota(result.getInt("NOTA"));
+				carte.setNota(result.getFloat("NOTA"));
 				carte.setNr_votanti(result.getInt("NR_VOT"));
 				carte.setCale_img(result.getString("Cale_img"));
 				carti[i] = carte;
-				System.out.println("inca una");
 				i++;
 			}
 
