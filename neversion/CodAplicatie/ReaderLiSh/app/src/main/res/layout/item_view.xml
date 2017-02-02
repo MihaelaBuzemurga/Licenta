@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <Space
+        android:layout_height="115dp"
+        android:layout_weight="0.28"
+        android:layout_width="5dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="0.28"
+        android:layout_width="77dp"
+        android:layout_height="115dp">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_weight="0.06" />
+
+        <ImageView
+            android:id="@+id/imagine_carte"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:maxHeight="80dp"
+            android:maxWidth="80dp"
+            android:src="@drawable/ic_menu_send"
+            android:layout_width="77dp"
+            android:layout_weight="0.06"
+            android:layout_height="101dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_weight="0.06" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="10dp"
+        android:layout_weight="0.01"
+        android:layout_height="115dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="188dp"
+        android:layout_height="115dp"
+        android:layout_weight="0.06">
+
+        <TextView
+            android:id="@+id/titlu_carte"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignBottom="@+id/gen_carte"
+            android:layout_alignParentRight="true"
+            android:text="qwe"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:id="@+id/autor_carte" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <TextView
+            android:id="@+id/gen_carte"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignBottom="@+id/imagine_carte"
+            android:layout_alignLeft="@+id/nota"
+            android:layout_marginBottom="16dp"
+            android:text="2000" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="10dp"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="115dp"
+        android:layout_weight="0.33">
+
+        <TextView
+            android:id="@+id/nota"
+            android:layout_above="@+id/titlu_carte"
+            android:layout_toRightOf="@+id/imagine_carte"
+            android:text="Nota"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nota_carte"
+            android:layout_weight="8.78" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.29" />
+
+</LinearLayout>
