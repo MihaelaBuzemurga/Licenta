@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_read"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/white"
+    tools:context="com.example.gabriel.readerlish.ReadActivity">
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_help"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="449dp"
+        android:id="@+id/floatingActionButton2" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <ViewAnimator
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewAnimator">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="34dp"
+                    app:srcCompat="@android:drawable/ic_menu_edit"
+                    android:id="@+id/imageButton_Edit"
+                    android:background="@android:color/transparent" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@android:drawable/ic_menu_search"
+                    android:id="@+id/button_searchWord"
+                    android:background="@android:color/transparent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/m_searchText"
+                    android:layout_weight="1"
+                    android:hint="Text" />
+
+                <Button
+                    android:text="Prev"
+                    android:layout_width="62dp"
+                    android:layout_height="36dp"
+                    android:id="@+id/imageButton_Prev"
+                    android:background="@android:color/transparent" />
+
+                <Button
+                    android:text="Next"
+                    android:layout_width="61dp"
+                    android:layout_height="33dp"
+                    android:id="@+id/imageButton_Next"
+                    android:background="@android:color/transparent" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@android:drawable/ic_menu_search"
+                    android:id="@+id/imageButton_search"
+                    android:background="@android:color/transparent" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+                    android:id="@+id/imageButton_CloseSearch"
+                    android:background="@android:color/transparent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@android:drawable/ic_input_add"
+                    android:id="@+id/imageButton11"
+                    android:layout_weight="1"
+                    android:onClick="OnAcceptButtonClick"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+                    android:id="@+id/close_"
+                    android:layout_weight="1"
+                    android:onClick="closeUtils"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@android:drawable/ic_menu_view"
+                    android:id="@+id/imageButton8"
+                    android:layout_weight="1"
+                    android:onClick="OnInkButtonClick"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@android:drawable/ic_menu_sort_by_size"
+                    android:id="@+id/imageButton7"
+                    android:layout_weight="1"
+                    android:onClick="OnUnderlineButtonClick"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@android:drawable/ic_menu_edit"
+                    android:id="@+id/imageButton6"
+                    android:layout_weight="1"
+                    android:onClick="OnHighlightButtonClick"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="?attr/actionModeCopyDrawable"
+                    android:id="@+id/imageButton_copy"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent" />
+            </LinearLayout>
+
+        </ViewAnimator>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:id="@+id/layout_ViewBook"
+            android:layout_weight="0.88">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/floatingActionButton2"
+                android:layout_marginEnd="62dp"
+                android:layout_marginTop="117dp">
+
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:layout_weight="0.14">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/textView_pageNumber"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <SeekBar
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/seekBar"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true" />
+    </LinearLayout>
+
+</RelativeLayout>

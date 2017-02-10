@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout2">
+
+        <include layout="@layout/header"
+            android:layout_width="match_parent"
+            android:layout_height="192dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:text="Incarca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_file_manager"
+        android:layout_marginLeft="66dp"
+        android:layout_alignTop="@+id/m_numeFisier"
+        android:layout_toEndOf="@+id/m_numeFisier"
+        android:layout_marginStart="20dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/m_numeFisier"
+        android:layout_marginStart="33dp"
+        android:hint="Nume fisier"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentStart="true"
+        android:editable="false" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/m_autorFisier"
+        android:hint="Autor"
+        android:layout_below="@+id/open_file_manager"
+        android:layout_alignEnd="@+id/open_file_manager"
+        android:layout_alignStart="@+id/m_numeFisier" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/m_autorFisier"
+        android:layout_alignEnd="@+id/m_autorFisier"
+        android:layout_alignStart="@+id/m_autorFisier"
+        android:id="@+id/linearLayout3">
+
+        <TextView
+            android:text="Gen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_alignStart="@+id/m_autorFisier"
+            android:layout_alignEnd="@+id/m_autorFisier"
+            android:layout_below="@+id/m_autorFisier"
+            android:layout_weight="1.58" />
+    </LinearLayout>
+
+    <Button
+        android:text="Incarca carte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_incarcaFisier"
+        android:layout_marginBottom="17dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/linearLayout3" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/m_descriereFisier"
+        android:layout_alignEnd="@+id/btn_incarcaFisier"
+        android:layout_below="@+id/linearLayout3"
+        android:layout_above="@+id/btn_incarcaFisier"
+        android:hint="Descriere" />
+
+    <Button
+        android:text="Incarca poza"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/m_btn_incarcaPozaFisier"
+        android:layout_alignBottom="@+id/m_descriereFisier"
+        android:layout_alignEnd="@+id/m_imageFile" />
+
+    <ImageView
+        app:srcCompat="@mipmap/carte_all_books"
+        android:id="@+id/m_imageFile"
+        android:layout_above="@+id/m_btn_incarcaPozaFisier"
+        android:layout_alignStart="@+id/linearLayout3"
+        android:layout_width="100dp"
+        android:layout_height="80dp" />
+
+</RelativeLayout>

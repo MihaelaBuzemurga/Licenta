@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_gravity="center_horizontal"
+    android:background="@mipmap/qw"
+    android:id="@+id/acvt"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="212dp"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="206dp"
+            android:layout_height="62dp"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:id="@+id/nume_utilizator"
+                android:layout_gravity="bottom" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_gravity="bottom|right"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.88"></LinearLayout>
+
+            <ImageButton
+                android:layout_width="43dp"
+                android:layout_height="48dp"
+                android:id="@+id/notificationButton"
+                android:src="@android:color/transparent"
+                android:elevation="0dp"
+                android:adjustViewBounds="false"
+                android:visibility="visible"
+                android:layout_gravity="bottom|right"
+                tools:baselineAlignBottom="false"
+                android:baselineAlignBottom="false"
+                android:background="@mipmap/notify_pink"
+                android:layout_marginBottom="5dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
